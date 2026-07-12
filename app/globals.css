@@ -22,25 +22,182 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
-/* :root {
---bg: "#111110",
-  --bg2: "#1c1c1a",
-  --bg3: "#2a2a27",
-  --border: "rgba(255,255,255,0.08)",
-  --text: "#f0ede8",
-  --text2: "#888780",
-  --text3: "#555552",
-} */
+/* ─── Page transitions ─── */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-/* const LIGHT: React.CSSProperties = {
-  "--bg": "#ffffff",
-  "--bg2": "#f4f3ef",
-  "--bg3": "#eae9e4",
-  "--border": "rgba(0,0,0,0.1)",
-  "--text": "#1a1a18",
-  "--text2": "#666560",
-  "--text3": "#aaa9a4",
-} as React.CSSProperties; */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-4px); }
+  40%      { transform: translateX(4px); }
+  60%      { transform: translateX(-2px); }
+  80%      { transform: translateX(2px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.6; }
+}
+
+.page-enter {
+  animation: fadeSlideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.error-msg {
+  animation: shake 0.3s ease;
+}
+
+/* ─── Brand badge ─── */
+.brand-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #111;
+  color: #ff5454;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* ─── Primary button ─── */
+.primary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1.5px solid transparent;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--text);
+  color: var(--bg);
+}
+.primary-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.primary-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+.primary-btn:disabled {
+  background: var(--bg3);
+  color: var(--text3);
+  border-color: var(--border);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ─── Ghost button ─── */
+.ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s ease;
+}
+.ghost-btn:hover {
+  background: var(--bg4);
+  color: var(--text);
+  border-color: var(--text3);
+}
+
+/* ─── Danger button ─── */
+.danger-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #e55;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s ease;
+}
+.danger-btn:hover {
+  background: #e55;
+  color: #fff;
+}
+
+/* ─── Quick select buttons ─── */
+.quick-btn {
+  padding: 7px 0;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1.5px solid var(--border);
+  background: var(--bg3);
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.quick-btn:hover {
+  background: var(--bg4);
+  color: var(--text);
+}
+.quick-btn.active {
+  background: var(--text);
+  color: var(--bg);
+  border-color: transparent;
+}
+
+/* ─── Number input ─── */
+.number-input {
+  -moz-appearance: textfield;
+}
+.number-input::-webkit-outer-spin-button,
+.number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.number-input:focus {
+  border-color: var(--text3) !important;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+/* ─── Card hover ─── */
+.card {
+  border-radius: 14px;
+}
+.hover-scale {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hover-scale:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ─── Stat card ─── */
+.stat-card {
+  transition: background 0.15s ease;
+}
+.stat-card:hover {
+  background: var(--bg4);
+}
+
+/* ─── Donut chart ─── */
+.donut-chart {
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.1));
+}
