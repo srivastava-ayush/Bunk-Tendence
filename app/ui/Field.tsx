@@ -1,5 +1,6 @@
 "use client";
 
+import { Warning } from "@phosphor-icons/react";
 import type { Theme } from "./theme";
 
 export default function Field({
@@ -44,7 +45,7 @@ export default function Field({
             border: `1px solid ${isDark ? "#5a2020" : "#f5c0c0"}`,
           }}
         >
-          <span className="text-xs leading-none">⚠</span>
+          <Warning size={14} weight="fill" style={{ color: isDark ? "#f08080" : "#c0392b", flexShrink: 0 }} />
           <span
             className="text-xs font-medium"
             style={{ color: isDark ? "#f08080" : "#c0392b" }}

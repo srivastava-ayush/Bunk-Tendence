@@ -8,7 +8,7 @@ export default function StatCard({
 }: {
   label: string;
   value: string | number;
-  icon?: string;
+  icon?: React.ReactNode;
   accent?: string;
 }) {
   return (
@@ -20,7 +20,7 @@ export default function StatCard({
       }}
     >
       <div className="mb-1 flex items-center gap-1.5">
-        {icon && <span className="text-[11px] opacity-60">{icon}</span>}
+        {icon && <span className="opacity-60">{icon}</span>}
         <p className="text-[11px] font-medium" style={{ color: "var(--text2)" }}>
           {label}
         </p>

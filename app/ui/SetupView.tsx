@@ -4,13 +4,14 @@ import type { Theme } from "./theme";
 import ThemeToggle from "./ThemeToggle";
 import Field from "./Field";
 import NumberInput from "./NumberInput";
+import { ArrowRight } from "@phosphor-icons/react";
 
 export default function SetupView({
   theme,
   onToggleTheme,
   total,
   attended,
-  daysLeft,
+  endDate,
   classesPerDay,
   targetPercent,
   totalError,
@@ -18,7 +19,7 @@ export default function SetupView({
   isValid,
   onTotalChange,
   onAttendedChange,
-  onDaysLeftChange,
+  onEndDateChange,
   onClassesPerDayChange,
   onTargetPercentChange,
   onSubmit,
@@ -27,7 +28,7 @@ export default function SetupView({
   onToggleTheme: () => void;
   total: number;
   attended: number;
-  daysLeft: number;
+  endDate: string;
   classesPerDay: number;
   targetPercent: number;
   totalError: string | null;
@@ -35,11 +36,13 @@ export default function SetupView({
   isValid: boolean;
   onTotalChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onAttendedChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onDaysLeftChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onEndDateChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClassesPerDayChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onTargetPercentChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: () => void;
 }) {
+  const today = new Date().toISOString().slice(0, 10);
+
   return (
     <div className="page-enter">
       {/* Header */}
@@ -94,16 +97,22 @@ export default function SetupView({
         </Field>
 
         <Field
-          label="Days left in semester"
-          hint="How many days to reach your target?"
+          label="Semester end date"
+          hint="When does the semester end?"
           theme={theme}
         >
-          <NumberInput
-            value={daysLeft}
-            onChange={onDaysLeftChange}
-            min={0}
-            placeholder="0"
-            theme={theme}
+          <input
+            type="date"
+            value={endDate}
+            min={today}
+            onChange={onEndDateChange}
+            className="number-input w-full rounded-[10px] px-3 py-2.5 text-[15px] outline-none transition-all duration-200"
+            style={{
+              background: "var(--bg3)",
+              color: "var(--text)",
+              border: "1.5px solid var(--border)",
+              colorScheme: theme === "dark" ? "dark" : "light",
+            }}
           />
         </Field>
 
@@ -132,7 +141,7 @@ export default function SetupView({
       </div>
 
       {/* Helper text */}
-      {!isValid && (total > 0 || daysLeft > 0 || attended > 0) && (
+      {!isValid && (total > 0 || endDate !== "" || attended > 0) && (
         <p
           className="mt-4 text-center text-[12px]"
           style={{ color: "var(--text3)" }}
@@ -141,14 +150,18 @@ export default function SetupView({
             ? "Fix the errors above to continue"
             : total === 0
               ? "Enter total classes held to continue"
-              : "Enter days left in semester to continue"}
+              : "Pick your semester end date to continue"}
         </p>
       )}
 
       {/* Submit */}
-      <button onClick={onSubmit} disabled={!isValid} className="primary-btn mt-6 w-full">
-        <span>{isValid ? "See my dashboard" : "See my dashboard"}</span>
-        {isValid && <span className="ml-1 text-[15px]">→</span>}
+      <button
+        onClick={onSubmit}
+        disabled={!isValid}
+        className="primary-btn mt-6 w-full"
+      >
+        <span>See my dashboard</span>
+        {isValid && <ArrowRight size={16} weight="bold" className="ml-1" />}
       </button>
     </div>
   );

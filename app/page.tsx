@@ -234,7 +234,6 @@ export default function AttendanceTracker() {
           classesPerDay={classesPerDay}
           attended={attended}
           total={total}
-          logs={logs}
           todayInput={todayInput}
           onTodayInputChange={setTodayInput}
           onSubmitToday={submitToday}
